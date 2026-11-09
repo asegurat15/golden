@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <template id="report_invoice_document_gaaf" inherit_id="account.report_invoice_document">
+    <xpath expr="//div[hasclass('page')]" position="before"></xpath>
+
+    <xpath expr="//th[@name='th_description']" position="before">
+      <th name="th_po_number" class="text-start"><span>PO#</span></th>
+    </xpath>
+
+    <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+      <td name="td_po_number">
+        <span t-field="line.po_number"/>
+      </td>
+    </xpath>
+
+    <xpath expr="//td[@name='td_price_unit']/span" position="replace">
+        <span class="text-nowrap" t-field="line.price_unit" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+    </xpath>
+
+    <xpath expr="//th[@name='th_taxes']" position="replace"/>
+    <xpath expr="//td[@name='td_taxes']" position="replace"/>
+
+    <xpath expr="//t[@t-call='account.document_tax_totals_company_currency_template']" position="replace"/>
+    <xpath expr="//div[hasclass('page')]" position="inside">
+      <div class="row" style="page-break-inside: avoid; margin-top: 50px;">
+        <div class="col-6" style="padding-right: 40px;">
+          <p style="margin: 0 0 10px 0;"><strong>Recibido por:</strong></p>
+          <div style="height: 90px; border-bottom: 1px solid #000; width: 100%;"></div>
+        </div>
+
+        <div class="col-6" style="padding-left: 20px;">
+          <p style="margin: 0 0 10px 0;"><strong>Entregado por:</strong></p>
+          <div style="height: 90px; text-align: center;">
+            <img src="/accounting_gaaf/static/src/img/sello.png" style="max-height: 85px; max-width: 45%; display: inline-block; vertical-align: bottom;" alt="Sello"/>
+            <img src="/accounting_gaaf/static/src/img/firma.png" style="max-height: 85px; max-width: 45%; display: inline-block; vertical-align: bottom; margin-right: 10px;" alt="Firma"/>
+          </div>
+        </div>
+      </div>
+    </xpath>
+  </template>
+</odoo>
